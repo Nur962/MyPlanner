@@ -362,8 +362,7 @@ function displayDrCoconutTip() {
 // --- 5. Prayer Time Integration (Using Waktu Solat API) ---
 
 async function getPrayerTimes() {
-    const zone = 'WLY01'; // Using Kuala Lumpur zone
-    // const zone = 'TRG02'; // Uncomment this line if you want Besut, Setiu prayer times
+    const zone = 'TRG02'; // Besut, Setiu prayer times
 
     const today = new Date();
     const currentDayOfMonth = today.getDate(); // This will be a number, e.g., 29
