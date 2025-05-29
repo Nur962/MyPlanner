@@ -1,0 +1,444 @@
+/* style.css */
+
+:root {
+    --primary-color: #B0E0E6; /* Light Blue - Moona's color */
+    --secondary-color: #87CEEB; /* Sky Blue */
+    --accent-color: #FFD700; /* Gold/Yellow for highlights */
+    --text-color: #333;
+    --light-text-color: #555;
+    --background-color: #F8F8F8; /* Light background */
+    --card-background: #FFFFFF;
+    --border-color: #E0E0E0;
+    --success-color: #28A745; /* Green for completed tasks */
+    --danger-color: #DC3545; /* Red for alerts */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.app-header {
+    background-color: var(--primary-color);
+    padding: 20px;
+    text-align: center;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.app-title {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.app-tagline {
+    font-size: 1.1em;
+    color: var(--light-text-color);
+}
+
+.main-nav {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    background-color: var(--card-background);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow-x: auto; /* Enable horizontal scrolling for small screens */
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+.nav-button {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--light-text-color);
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.nav-button.active {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* --- NEW CSS FOR CENTERING ACTION BUTTONS --- */
+.action-buttons {
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center horizontally */
+    flex-wrap: wrap; /* Allow buttons to wrap to the next line on smaller screens */
+    padding: 15px 10px; /* Add some padding around the buttons */
+    background-color: var(--card-background);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px; /* Add space below the buttons */
+}
+/* --- END NEW CSS FOR CENTERING ACTION BUTTONS --- */
+
+
+.app-content {
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.today-info {
+    text-align: center;
+    margin-bottom: 25px;
+    background-color: var(--card-background);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.today-info h2 {
+    font-size: 1.8em;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.today-info p {
+    font-size: 1.1em;
+    color: var(--light-text-color);
+    margin-top: 0;
+}
+
+.action-button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 5px; /* Adjust margin here to create space between buttons */
+}
+
+.action-button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.daily-schedule {
+    background-color: var(--card-background);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    padding: 15px;
+}
+
+.task-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.task-checkbox {
+    margin-right: 15px;
+    transform: scale(1.5); /* Make checkbox bigger */
+    cursor: pointer;
+    min-width: 20px; /* Ensure space for checkbox */
+    min-height: 20px;
+    margin-top: 5px; /* Align with text */
+}
+
+.task-content {
+    flex-grow: 1;
+}
+
+.task-time {
+    font-size: 0.9em;
+    color: var(--light-text-color);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.task-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.task-title.completed {
+    text-decoration: line-through;
+    color: var(--light-text-color);
+}
+
+.task-notes {
+    font-size: 0.9em;
+    color: var(--light-text-color);
+    margin-top: 5px;
+}
+
+.task-notes strong {
+    color: var(--text-color);
+}
+
+.vco-tag {
+    background-color: #B2DFDB; /* Light green for VCO */
+    color: #00796B; /* Dark green text */
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 0.75em;
+    font-weight: 600;
+    margin-left: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.vco-tag:hover {
+    background-color: #80CBC4;
+}
+
+.meal-details, .vco-subtask-details {
+    background-color: #F0F8FF; /* Very light blue */
+    border-left: 3px solid var(--secondary-color);
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+.meal-details p, .vco-subtask-details p {
+    margin-bottom: 5px;
+}
+.meal-details p:last-child, .vco-subtask-details p:last-child {
+    margin-bottom: 0;
+}
+
+.meal-details strong, .vco-subtask-details strong {
+    color: var(--light-text-color);
+}
+
+.vco-benefits-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.vco-popup-content {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+}
+
+.vco-popup-content h3 {
+    font-size: 1.6em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.vco-popup-content p {
+    font-size: 1.1em;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.dr-coconut {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--light-text-color);
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.close-popup-button {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.close-popup-button:hover {
+    background-color: var(--primary-color);
+}
+
+.dr-coconut-tips-section {
+    background-color: var(--card-background);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    margin-top: 20px;
+    text-align: center;
+}
+
+.dr-coconut-tips-section h3 {
+    font-size: 1.4em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.dr-coconut-tips-section p {
+    font-style: italic;
+    color: var(--light-text-color);
+}
+
+
+.app-footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    color: var(--light-text-color);
+    font-size: 0.9em;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .app-title {
+        font-size: 1.8em;
+    }
+
+    .app-tagline {
+        font-size: 1em;
+    }
+
+    .nav-button {
+        padding: 8px 10px;
+        font-size: 0.9em;
+        margin: 0 3px;
+    }
+
+    .app-content {
+        padding: 10px;
+        margin: 10px auto;
+    }
+
+    .today-info h2 {
+        font-size: 1.5em;
+    }
+
+    .action-button {
+        padding: 8px 12px;
+        font-size: 0.8em;
+    }
+
+    .task-item {
+        padding: 10px 0;
+    }
+
+    .task-time {
+        font-size: 0.8em;
+    }
+
+    .task-title {
+        font-size: 1em;
+    }
+
+    .task-notes {
+        font-size: 0.8em;
+    }
+
+    .vco-popup-content {
+        padding: 20px;
+        margin: 15px;
+    }
+
+    .vco-popup-content h3 {
+        font-size: 1.4em;
+    }
+
+    .vco-popup-content p {
+        font-size: 1em;
+    }
+}
+
+/* Utility classes */
+.hidden {
+    display: none !important;
+}
+
+/* --- NEW CSS FOR RESET BUTTON --- */
+.action-button.reset-button {
+    background-color: var(--danger-color); /* Uses your defined red color */
+    color: white; /* Ensures text is white for contrast */
+    margin-top: 15px; /* Adds some space above it, aligns it well below the existing text */
+}
+
+.action-button.reset-button:hover {
+    background-color: #C82333; /* A slightly darker red for hover, manually chosen for good contrast */
+    transform: translateY(-2px); /* Keeps the subtle hover effect inherited from .action-button */
+}
+
+/* Styles for delete button */
+.delete-button {
+    background-color: #dc3545; /* Red color */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    /* margin-left: 10px; REMOVED THIS */
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+/* Styles for reset checkboxes button (Sunday specific) */
+.reset-checkboxes-button {
+    background-color: #ffc107; /* Orange/Yellow color */
+    color: #333;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    /* margin-left: 10px; REMOVED THIS */
+    transition: background-color 0.3s ease;
+}
+
+.reset-checkboxes-button:hover {
+    background-color: #e0a800;
+}
+
+/* Ensure buttons are hidden by default and shown by JS */
+#deleteDayScheduleBtn,
+#resetSundayCheckboxesBtn {
+    display: none;
+}
