@@ -1,475 +1,232 @@
-/* style.css */
-
-/* 1. CSS Variables */
-:root {
-    --primary-color: #B0E0E6; /* Light Blue - Moona's color */
-    --secondary-color: #87CEEB; /* Sky Blue */
-    --accent-color: #FFD700; /* Gold/Yellow for highlights */
-    --text-color: #333;
-    --light-text-color: #555;
-    --background-color: #F8F8F8; /* Light background */
-    --card-background: #FFFFFF;
-    --border-color: #E0E0E0;
-    --success-color: #28A745; /* Green for completed tasks */
-    --danger-color: #DC3545; /* Red for alerts */
-}
-
-/* 2. Base Styles */
+/* General body styling */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #eef2f7; /* Very Light Blue-Grey Background */
+    color: #3f4a5f; /* Dark Blue-Grey Text */
+    line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
-}
-
-/* 3. General Layout/Container Styles */
-.app-header {
-    background-color: var(--primary-color);
-    padding: 20px;
-    text-align: center;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.app-title {
-    font-size: 2.2em;
-    font-weight: 700;
-    color: var(--text-color);
-    margin-bottom: 5px;
-}
-
-.app-tagline {
-    font-size: 1.1em;
-    color: var(--light-text-color);
-}
-
-.app-content {
-    padding: 20px;
-    max-width: 800px;
-    margin: 20px auto;
-}
-
-.app-footer {
-    text-align: center;
-    padding: 20px;
-    margin-top: 30px;
-    color: var(--light-text-color);
-    font-size: 0.9em;
-    border-top: 1px solid var(--border-color);
-}
-
-/* 4. Navigation */
-.main-nav { /* IMPORTANT: Ensure this class name is used in your HTML */
-    display: flex; /* Still a flex container for its buttons */
-    overflow-x: auto; /* Enable horizontal scrolling */
-    white-space: nowrap; /* Prevent items from wrapping */
-    padding: 10px 0; /* Vertical padding only, horizontal padding from container */
-    background-color: var(--card-background);
-    border-bottom: 1px solid var(--border-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    margin-bottom: 20px;
-    gap: 8px; /* Spacing between buttons */
-
-    /* ***** MODIFIED SECTION FOR CENTERING THE NAV BAR ITSELF ***** */
-    /* By default, flex containers take 100% width. To center it,
-       we either restrict its width and use margin: auto,
-       or make its content internally centered when possible. */
-    /* Option A: Center the flex container itself if its content doesn't fill it */
-    max-width: fit-content; /* Make the container only as wide as its content */
-    margin-left: auto; /* Center the container horizontally */
-    margin-right: auto; /* Center the container horizontally */
-    /* OR you can use 'margin: 0 auto;' if you prefer the shorthand */
-
-    /* Keep content aligned to the start within the scrollable area */
-    justify-content: flex-start; /* Buttons start from the left WITHIN this scrollable bar */
-
-    /* *************************************************************** */
-
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    scrollbar-width: thin; /* Firefox scrollbar */
-    scrollbar-color: #888 #f1f1f1; /* Firefox scrollbar color */
-}
-
-.nav-button {
-    flex-shrink: 0; /* Prevent buttons from shrinking, forcing scroll */
-    background: none;
-    border: 1px solid var(--border-color); /* Add a subtle border */
-    padding: 8px 15px; /* Slightly reduced padding for mobile */
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.95em; /* Slightly smaller font */
-    font-weight: 600;
-    color: var(--light-text-color);
-    cursor: pointer;
-    border-radius: 20px; /* Pill shape */
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
-.nav-button:hover {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    border-color: var(--primary-color);
-}
-
-.nav-button.active {
-    background-color: var(--secondary-color);
-    color: var(--text-color);
-    border-color: var(--secondary-color);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* 5. Main Content Sections */
-.today-info {
-    text-align: center;
-    margin-bottom: 25px;
-    background-color: var(--card-background);
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-}
-
-.today-info h2 {
-    font-size: 1.8em;
-    color: var(--text-color);
-    margin-bottom: 5px;
-}
-
-.today-info p {
-    font-size: 1.1em;
-    color: var(--light-text-color);
-    margin-top: 0;
-}
-
-.daily-schedule {
-    background-color: var(--card-background);
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    padding: 15px;
-}
-
-/* 6. Task-related Styles */
-.task-item {
-    display: flex;
-    align-items: flex-start;
-    padding: 15px 0;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.task-item:last-child {
-    border-bottom: none;
-}
-
-.task-checkbox {
-    margin-right: 15px;
-    transform: scale(1.5); /* Make checkbox bigger */
-    cursor: pointer;
-    min-width: 20px; /* Ensure space for checkbox */
-    min-height: 20px;
-    margin-top: 5px; /* Align with text */
-}
-
-.task-content {
-    flex-grow: 1;
-}
-
-.task-time {
-    font-size: 0.9em;
-    color: var(--light-text-color);
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-.task-title {
-    font-size: 1.1em;
-    font-weight: 600;
-    color: var(--text-color);
-    margin-bottom: 5px;
-    display: flex;
-    align-items: center;
-}
-
-.task-title.completed {
-    text-decoration: line-through;
-    color: var(--light-text-color);
-}
-
-.task-notes {
-    font-size: 0.9em;
-    color: var(--light-text-color);
-    margin-top: 5px;
-}
-
-.task-notes strong {
-    color: var(--text-color);
-}
-
-/* 7. Specific Components/Features (VCO, Meal Details, Popups) */
-.vco-tag {
-    background-color: #B2DFDB; /* Light green for VCO */
-    color: #00796B; /* Dark green text */
-    padding: 3px 8px;
-    border-radius: 5px;
-    font-size: 0.75em;
-    font-weight: 600;
-    margin-left: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.vco-tag:hover {
-    background-color: #80CBC4;
-}
-
-.meal-details, .vco-subtask-details {
-    background-color: #F0F8FF; /* Very light blue */
-    border-left: 3px solid var(--secondary-color);
-    padding: 10px 15px;
-    margin-top: 10px;
-    border-radius: 5px;
-    font-size: 0.9em;
-    color: var(--text-color);
-}
-
-.meal-details p, .vco-subtask-details p {
-    margin-bottom: 5px;
-}
-.meal-details p:last-child, .vco-subtask-details p:last-child {
-    margin-bottom: 0;
-}
-
-.meal-details strong, .vco-subtask-details strong {
-    color: var(--light-text-color);
-}
-
-.vco-benefits-section {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    align-items: flex-start;
+    min-height: 100vh;
 }
 
-.vco-popup-content {
-    background-color: var(--card-background);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    max-width: 400px;
-    text-align: center;
-    position: relative;
-}
-
-.vco-popup-content h3 {
-    font-size: 1.6em;
-    color: var(--primary-color);
-    margin-bottom: 15px;
-}
-
-.vco-popup-content p {
-    font-size: 1.1em;
-    color: var(--text-color);
-    margin-bottom: 20px;
-}
-
-.dr-coconut {
-    font-style: italic;
-    font-weight: 600;
-    color: var(--light-text-color);
-    margin-top: 20px;
-    font-size: 0.9em;
-}
-
-.close-popup-button {
-    background-color: var(--secondary-color);
-    color: var(--text-color);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-}
-
-.close-popup-button:hover {
-    background-color: var(--primary-color);
-}
-
-.dr-coconut-tips-section {
-    background-color: var(--card-background);
-    padding: 15px;
+/* Container for the entire planner */
+.planner-container {
+    background: #ffffff; /* Pure White Background */
+    max-width: 900px;
+    width: 90%;
+    margin: 30px auto;
+    padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-    margin-top: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Black with 8% Opacity Shadow */
+    border: 1px solid #e1e8ed; /* Light Blue-Grey Border */
+}
+
+/* Main heading styling */
+h1 {
+    text-align: center;
+    color: #2c3e50; /* Dark Blue Heading */
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e1e8ed; /* Light Blue-Grey Border */
+    font-size: 2.2em;
+    font-weight: 600;
+}
+
+/* Info Section Styling (Date, Prayer, Weather) */
+.info-section {
+    background-color: #f7f9fc; /* Off-White/Very Light Blue Info Background */
+    border: 1px solid #e1e8ed; /* Light Blue-Grey Border */
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 35px;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.info-section > div {
+    flex: 1;
+    min-width: 180px;
+    margin: 10px;
+    padding: 10px 0;
     text-align: center;
 }
 
-.dr-coconut-tips-section h3 {
-    font-size: 1.4em;
-    color: var(--primary-color);
+.info-section p {
+    margin: 5px 0;
+    font-size: 1.05em;
+    color: #556075; /* Medium Blue-Grey Text */
+}
+
+.info-section h3 {
+    color: #3498db; /* Primary Blue Accent */
+    margin-top: 0;
     margin-bottom: 10px;
+    border-bottom: 1px dashed #cfdbe8; /* Light Dashed Blue-Grey Border */
+    padding-bottom: 8px;
+    font-size: 1.2em;
+    font-weight: 500;
 }
 
-.dr-coconut-tips-section p {
-    font-style: italic;
-    color: var(--light-text-color);
+#prayer-times p, #weather-forecast {
+    font-size: 0.95em;
+    margin: 3px 0;
 }
 
-/* 8. Action Buttons */
-.action-buttons {
-    display: flex; /* Use flexbox */
-    justify-content: center; /* Center horizontally */
-    flex-wrap: wrap; /* Allow buttons to wrap to the next line on smaller screens */
-    padding: 15px 10px; /* Add some padding around the buttons */
-    background-color: var(--card-background);
-    border-bottom: 1px solid var(--border-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    margin-bottom: 20px; /* Add space below the buttons */
+/* Category heading styling */
+h2 {
+    color: #34495e; /* Darker Blue-Grey Heading */
+    border-bottom: 1px solid #e1e8ed; /* Light Blue-Grey Border */
+    padding-bottom: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    font-weight: 600;
 }
 
-.action-button {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    border: none;
-    padding: 10px 15px;
+/* Styling for each category block */
+.category {
+    margin-bottom: 25px;
+    padding: 20px;
+    background-color: #ffffff; /* Pure White Background */
+    border: 1px solid #e1e8ed; /* Light Blue-Grey Border */
     border-radius: 8px;
-    font-size: 0.9em;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Black with 5% Opacity Shadow */
+}
+
+/* Styling for the task list (ul) */
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Styling for individual tasks (li) and checkboxes */
+.task-list li {
+    background: #fdfdfd; /* Very Light Grey Background (Task) */
+    margin-bottom: 10px;
+    padding: 12px 20px;
+    border-left: 6px solid #5cb85c; /* Success Green Accent */
+    border-radius: 5px;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease, border-left-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Black with 5% Opacity Shadow */
+}
+
+.task-list li:hover {
+    background-color: #f5f8fa; /* Light Hover Background */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Black with 8% Opacity Shadow */
+}
+
+.task-list li input[type="checkbox"] {
+    margin-right: 15px;
+    transform: scale(1.3);
+    cursor: pointer;
+    accent-color: #3498db; /* Primary Blue Accent (Checkbox) */
+}
+
+.task-list li label {
+    flex-grow: 1;
+    cursor: pointer;
+    color: #4a5a6a; /* Dark Blue-Grey Text (Task) */
+}
+
+/* Style for completed tasks */
+.task-list li.completed {
+    background-color: #e6f7ed; /* Light Success Green Background */
+    border-left-color: #27ae60; /* Darker Success Green Accent */
+    text-decoration: line-through;
+    color: #8fa2ad; /* Muted Grey Text */
+    box-shadow: none;
+}
+
+.task-list li.completed:hover {
+    background-color: #e6f7ed; /* Light Success Green Background */
+    box-shadow: none;
+}
+
+/* Clear All Button */
+#clear-tasks-btn {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    margin-top: 40px;
+    background-color: #e74c3c; /* Alert Red Button */
+    color: white; /* Pure White Text */
+    border: none;
+    border-radius: 8px;
+    font-size: 1.15em;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    margin: 5px; /* Adjust margin here to create space between buttons */
+    box-shadow: 0 3px 8px rgba(231, 76, 60, 0.2); /* Alert Red with 20% Opacity Shadow */
 }
 
-.action-button:hover {
-    background-color: var(--secondary-color);
+#clear-tasks-btn:hover {
+    background-color: #c0392b; /* Darker Alert Red Button */
     transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(231, 76, 60, 0.3); /* Alert Red with 30% Opacity Shadow */
 }
 
-.action-button.reset-button {
-    background-color: var(--danger-color); /* Uses your defined red color */
-    color: white; /* Ensures text is white for contrast */
-    margin-top: 15px; /* Adds some space above it, aligns it well below the existing text */
+#clear-tasks-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(231, 76, 60, 0.2);
 }
 
-.action-button.reset-button:hover {
-    background-color: #C82333; /* A slightly darker red for hover, manually chosen for good contrast */
-    transform: translateY(-2px); /* Keeps the subtle hover effect inherited from .action-button */
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+    width: 10px;
 }
 
-.delete-button {
-    background-color: #dc3545; /* Red color */
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-    /* margin-left: 10px; REMOVED THIS */
-    transition: background-color 0.3s ease;
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Light Grey Scrollbar Track */
+    border-radius: 10px;
 }
 
-.delete-button:hover {
-    background-color: #c82333;
+::-webkit-scrollbar-thumb {
+    background: #888; /* Medium Grey Scrollbar Thumb */
+    border-radius: 10px;
 }
 
-.reset-checkboxes-button {
-    background-color: #ffc107; /* Orange/Yellow color */
-    color: #333;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-    /* margin-left: 10px; REMOVED THIS */
-    transition: background-color 0.3s ease;
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Dark Grey Scrollbar Thumb Hover */
 }
 
-.reset-checkboxes-button:hover {
-    background-color: #e0a800;
+/* For Firefox (less customization options) */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1; /* Medium Grey Thumb / Light Grey Track */
 }
 
-/* Ensure buttons are hidden by default and shown by JS */
-#deleteDayScheduleBtn,
-#resetSundayCheckboxesBtn {
-    display: none;
+/* Notification Pop-up Styling */
+.notification-popup {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #336666; /* Success Medium Dark Shade of Cyan-Blue Notification Background */
+    color: white; /* Pure White Text */
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Black with 20% Opacity Shadow */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    z-index: 1000;
+    font-size: 1.5em;
+    font-weight: 700;
+    text-align: center;
+    min-width: 250px;
 }
 
-/* 9. Utility Classes */
-.hidden {
-    display: none !important;
-}
-
-/* 10. Responsive Adjustments */
-@media (max-width: 600px) {
-    .app-title {
-        font-size: 1.8em;
-    }
-
-    .app-tagline {
-        font-size: 1em;
-    }
-
-    .nav-button {
-        padding: 7px 12px; /* Slightly less padding on smaller screens */
-        font-size: 0.85em; /* Smaller font for tighter fit */
-        margin: 0 4px; /* Adjust margin if 'gap' isn't fully supported or for specific layouts */
-    }
-
-    .app-content {
-        padding: 10px;
-        margin: 10px auto;
-    }
-
-    .today-info h2 {
-        font-size: 1.5em;
-    }
-
-    .action-button {
-        padding: 8px 12px;
-        font-size: 0.8em;
-    }
-
-    .task-item {
-        padding: 10px 0;
-    }
-
-    .task-time {
-        font-size: 0.8em;
-    }
-
-    .task-title {
-        font-size: 1em;
-    }
-
-    .task-notes {
-        font-size: 0.8em;
-    }
-
-    .vco-popup-content {
-        padding: 20px;
-        margin: 15px;
-    }
-
-    .vco-popup-content h3 {
-        font-size: 1.4em;
-    }
-
-    .vco-popup-content p {
-        font-size: 1em;
-    }
-}
-
-@media (max-width: 375px) {
-    .nav-button {
-        padding: 6px 10px; /* Even smaller padding on very small screens */
-        font-size: 0.8em; /* Even smaller font */
-        margin: 0 3px;
-    }
+.notification-popup.show {
+    opacity: 1;
+    visibility: visible;
 }
