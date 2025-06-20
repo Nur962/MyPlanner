@@ -66,13 +66,13 @@ function displayCurrentDate() {
     }
 
     // Fetch Hijri date using a free API (IslamicFinder or similar)
-    // Ensure hijriDateSpan exists before fetching, as fetch result relies on it
     if (!hijriDateSpan) {
         console.error("Element with ID 'hijri-date' not found. Cannot fetch Hijri date.");
         return; // Exit if the element isn't there
     }
 
-    fetch('http://api.aladhan.com/v1/gToH')
+    // FIX: Changed HTTP to HTTPS in the API URL to resolve Mixed Content error
+    fetch('https://api.aladhan.com/v1/gToH')
         .then(response => {
             console.log('Aladhan API Request URL:', response.url); // Log the actual URL
             console.log('Aladhan API Response Status:', response.status); // Log status
