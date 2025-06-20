@@ -6,10 +6,15 @@ function formatTime(date) {
 }
 
 // Function to show a generic notification with a custom message and duration
-// This replaces your original showNotification and is more flexible.
 function showCustomNotification(message, duration = 3000) {
     const notificationPopup = document.getElementById('notification-popup');
     const notificationMessage = document.getElementById('notification-message');
+
+    // Basic check to ensure elements exist before trying to use them
+    if (!notificationPopup || !notificationMessage) {
+        console.error("Notification elements not found! Make sure 'notification-popup' and 'notification-message' IDs exist in your HTML.");
+        return;
+    }
 
     // Set message and make it visible
     notificationMessage.textContent = message;
@@ -37,7 +42,7 @@ const MALAYSIA_COUNTRY_CODE = 'MY'; // Country code for Malaysia
 // --- DOM Elements ---
 const currentDaySpan = document.getElementById('current-day');
 const masihiDateSpan = document.getElementById('masihi-date');
-const hijriDateSpan = document.getElementById('hijri-date');
+const hijriDateSpan = document.getElementById('hijri-date'); // This is the element we're targeting
 const prayerTimesSection = document.getElementById('prayer-times');
 const weatherForecastSpan = document.getElementById('weather-forecast');
 const clearTasksBtn = document.getElementById('clear-tasks-btn');
@@ -48,23 +53,53 @@ function displayCurrentDate() {
     const optionsDay = { weekday: 'long' };
     const optionsDateMasihi = { year: 'numeric', month: 'long', day: 'numeric' };
 
-    currentDaySpan.textContent = today.toLocaleDateString('en-US', optionsDay);
-    masihiDateSpan.textContent = today.toLocaleDateString('en-US', optionsDateMasihi);
+    // Set Masihi (Gregorian) dates
+    if (currentDaySpan) {
+        currentDaySpan.textContent = today.toLocaleDateString('en-US', optionsDay);
+    } else {
+        console.warn("Element with ID 'current-day' not found.");
+    }
+    if (masihiDateSpan) {
+        masihiDateSpan.textContent = today.toLocaleDateString('en-US', optionsDateMasihi);
+    } else {
+        console.warn("Element with ID 'masihi-date' not found.");
+    }
 
     // Fetch Hijri date using a free API (IslamicFinder or similar)
+    // Ensure hijriDateSpan exists before fetching, as fetch result relies on it
+    if (!hijriDateSpan) {
+        console.error("Element with ID 'hijri-date' not found. Cannot fetch Hijri date.");
+        return; // Exit if the element isn't there
+    }
+
     fetch('http://api.aladhan.com/v1/gToH')
-        .then(response => response.json())
+        .then(response => {
+            console.log('Aladhan API Request URL:', response.url); // Log the actual URL
+            console.log('Aladhan API Response Status:', response.status); // Log status
+            if (!response.ok) { // Check for HTTP errors (e.g., 404, 500, 403)
+                throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+            }
+            return response.json();
+        })
         .then(data => {
+            console.log('Aladhan API Raw Data:', data); // Log the full data object
             if (data.data && data.data.hijri) {
                 const hijriDate = data.data.hijri;
+                console.log('Parsed Hijri Date object:', hijriDate); // Log the hijri object
+                console.log('Hijri Day:', hijriDate.day);
+                console.log('Hijri Month (en):', hijriDate.month.en);
+                console.log('Hijri Year:', hijriDate.year);
+
                 hijriDateSpan.textContent = `${hijriDate.day} ${hijriDate.month.en} ${hijriDate.year} AH`;
+                console.log('Hijri date successfully set to:', hijriDateSpan.textContent); // Confirm what was set
             } else {
+                console.warn('Aladhan API did not return expected data.data.hijri structure.');
                 hijriDateSpan.textContent = 'N/A (Could not fetch Hijri date)';
             }
         })
         .catch(error => {
             console.error('Error fetching Hijri date:', error);
-            hijriDateSpan.textContent = 'N/A (Error)';
+            hijriDateSpan.textContent = `N/A (Error: ${error.message || error})`;
         });
 }
 
@@ -89,21 +124,36 @@ async function fetchPrayerTimes() {
                 document.getElementById('maghrib').textContent = currentDayData.timings.Maghrib.split(' ')[0];
                 document.getElementById('isha').textContent = currentDayData.timings.Isha.split(' ')[0];
             } else {
-                prayerTimesSection.innerHTML = '<p>Could not find prayer times for today.</p>';
+                if (prayerTimesSection) {
+                     prayerTimesSection.innerHTML = '<p>Could not find prayer times for today.</p>';
+                } else {
+                    console.warn("Element with ID 'prayer-times' not found.");
+                }
             }
         } else {
-            prayerTimesSection.innerHTML = '<p>Error fetching prayer times data.</p>';
+            if (prayerTimesSection) {
+                prayerTimesSection.innerHTML = '<p>Error fetching prayer times data.</p>';
+            } else {
+                console.warn("Element with ID 'prayer-times' not found.");
+            }
         }
     } catch (error) {
         console.error('Error fetching prayer times:', error);
-        prayerTimesSection.innerHTML = '<p>Failed to load prayer times. Please check your internet connection or API key.</p>';
+        if (prayerTimesSection) {
+            prayerTimesSection.innerHTML = '<p>Failed to load prayer times. Please check your internet connection or API key.</p>';
+        } else {
+             console.warn("Element with ID 'prayer-times' not found during error handling.");
+        }
     }
 }
 
 // --- Function to fetch and display Raincheck Forecast ---
 async function fetchWeatherForecast() {
     if (!OPENWEATHER_API_KEY || OPENWEATHER_API_KEY === 'YOUR_OPENWEATHERMAP_API_KEY') {
-        weatherForecastSpan.textContent = 'Weather API key not configured. Please get a key from OpenWeatherMap.';
+        if (weatherForecastSpan) {
+            weatherForecastSpan.textContent = 'Weather API key not configured. Please get a key from OpenWeatherMap.';
+            weatherForecastSpan.style.color = '#e74c3c';
+        }
         console.warn('OpenWeatherMap API key is missing or not set.');
         return;
     }
@@ -133,27 +183,37 @@ async function fetchWeatherForecast() {
                 }
             }
 
-            if (rainExpected) {
-                weatherForecastSpan.textContent = `Yes! Details: ${forecastDetails}`;
-                weatherForecastSpan.style.color = '#e74c3c';
-            } else {
-                weatherForecastSpan.textContent = 'Not expected in the next 24 hours. Good for gardening!';
-                weatherForecastSpan.style.color = '#28a745';
+            if (weatherForecastSpan) {
+                if (rainExpected) {
+                    weatherForecastSpan.textContent = `Yes! Details: ${forecastDetails}`;
+                    weatherForecastSpan.style.color = '#e74c3c';
+                } else {
+                    weatherForecastSpan.textContent = 'Not expected in the next 24 hours. Good for gardening!';
+                    weatherForecastSpan.style.color = '#28a745';
+                }
             }
         } else {
-            weatherForecastSpan.textContent = `Error: ${data.message || 'Could not fetch weather data.'}`;
-            weatherForecastSpan.style.color = '#e74c3c';
+            if (weatherForecastSpan) {
+                weatherForecastSpan.textContent = `Error: ${data.message || 'Could not fetch weather data.'}`;
+                weatherForecastSpan.style.color = '#e74c3c';
+            }
         }
     } catch (error) {
         console.error('Error fetching weather forecast:', error);
-        weatherForecastSpan.textContent = 'Failed to load weather forecast. Check API key/internet.';
-        weatherForecastSpan.style.color = '#e74c3c';
+        if (weatherForecastSpan) {
+            weatherForecastSpan.textContent = 'Failed to load weather forecast. Check API key/internet.';
+            weatherForecastSpan.style.color = '#e74c3c';
+        }
     }
 }
 
 // --- NEW FUNCTION: Check if all tasks are completed ---
 function checkAllTasksCompleted() {
     const checkboxes = document.querySelectorAll('.task-list input[type="checkbox"]');
+    // If there are no checkboxes, consider it not "all completed" for the notification
+    if (checkboxes.length === 0) {
+        return;
+    }
     const allCompleted = Array.from(checkboxes).every(checkbox => checkbox.checked);
 
     if (allCompleted) {
@@ -234,11 +294,15 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCheckboxes(); // Attach listeners after loading states
 
     // Event listener for the clear button
-    clearTasksBtn.addEventListener('click', () => {
-        clearAllTasks();
-        // You might want to re-check completion here, though clearAllTasks already does.
-        // It's good to keep it consistent.
-    });
+    if (clearTasksBtn) {
+        clearTasksBtn.addEventListener('click', () => {
+            clearAllTasks();
+            // You might want to re-check completion here, though clearAllTasks already does.
+            // It's good to keep it consistent.
+        });
+    } else {
+        console.warn("Element with ID 'clear-tasks-btn' not found.");
+    }
 
     // Initial check for completed tasks in case all were already completed from local storage
     checkAllTasksCompleted();
