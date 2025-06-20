@@ -3,61 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyPlanner</title>
+    <title>My Daily Planner</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 </head>
 <body>
-    <header class="app-header">
-        <h1 class="app-title">MyPlanner</h1>
-        <p class="app-tagline">NSSP Freelancer</p>
-    </header>
+    <div class="planner-container">
+        <h1>My Daily Planner 🇲🇾</h1>
 
-    <nav class="main-nav">
-        <button class="nav-button active" data-day="Sunday">Ahad</button>
-        <button class="nav-button" data-day="Monday">Isnin</button>
-        <button class="nav-button" data-day="Tuesday">Selasa</button>
-        <button class="nav-button" data-day="Wednesday">Rabu</button>
-        <button class="nav-button" data-day="Thursday">Khamis</button>
-        <button class="nav-button" data-day="Friday">Jumaat</button>
-        <button class="nav-button" data-day="Saturday">Sabtu</button>
-    </nav>
+        <div class="info-section">
+            <div>Today:<p><b span id="current-day"></b></span></p></div>
+            <div>Masihi:<p><b span id="masihi-date"></b></span></p></div>
+            <div>Hijri:<p><b span id="hijri-date"></b></span></p></div>
 
-    <div class="action-buttons">
-        <button id="copyFromSundayBtn" class="action-button">Copy Sunday Schedule</button>
-        <button id="resetDayBtn" class="action-button">Reset Day</button>
-        <button id="deleteDayScheduleBtn" class="action-button delete-button">Delete Schedule</button>
-        <button id="resetSundayCheckboxesBtn" class="action-button reset-checkboxes-button">Reset Sunday Checkboxes</button>
-    </div>
-    <main class="app-content">
-        <div class="today-info">
-            <h2 id="currentDay">Today: Ahad (Sunday)</h2>
-            <p id="prayerTimeInfo">Waktu Solat Subuh - 5:30 Pagi</p>
+            <div id="prayer-times-section">
+                <h3>Prayer Times (Malaysia)</h3>
+                <div id="prayer-times"><b>
+                    <p>Fajr: <span id="fajr"></span></p>
+                    <p>Dhuhr: <span id="dhuhr"></span></p>
+                    <p>Asr: <span id="asr"></span></p>
+                    <p>Maghrib: <span id="maghrib"></span></p>
+                    <p>Isha: <span id="isha"></span></p></b>
+                </div>
             </div>
+            <div id="weather-section">
+                <h3>Raincheck Forecast (Tomorrow)</h3>
+                <p id="weather-forecast"></p>
+            </div>
+        </div>
 
-        <section id="dailySchedule" class="daily-schedule">
-            <p class="loading-message">Loading your daily schedule...</p>
-        </section>
+        <div class="category">
+            <h2>Fresh Idea Zone</h2>
+            <ul id="free-zone-gadget-tasks" class="task-list">
+                <li data-task-id="task1">
+                    <input type="checkbox" id="checkbox-task1">
+                    <b label for="checkbox-task1">0300- Tahajud</b></label>
+                </li>
+                <li data-task-id="task2">
+                    <input type="checkbox" id="checkbox-task2">
+                    <label for="checkbox-task2">0500- Exercise stamina</label>
+                </li>
+                <li data-task-id="task3">
+                    <input type="checkbox" id="checkbox-task3">
+                    <label for="checkbox-task3">0515- Freelance Story 💺💻 [Buku 📚 (Weekend)]</label>
+                </li>
+                <li data-task-id="task4">
+                    <input type="checkbox" id="checkbox-task4">
+                    <b label for="checkbox-task4">0550- Subuh☪️</b></label>
+                </li>
+            </ul>
+        </div>
 
-        <section id="vcoBenefits" class="vco-benefits-section" style="display: none;">
-            <div class="vco-popup-content">
-                <h3 id="vcoBenefitTitle"></h3>
-                <p id="vcoBenefitText"></p>
-                <p class="dr-coconut">~ Dr. Coconut Says</p>
-                <button class="close-popup-button material-symbols-outlined">close</button> </div>
-        </section>
+        <div class="category">
+            <h2>Morning Routine</h2>
+            <ul id="morning-routine-tasks" class="task-list">
+                <li data-task-id="task5">
+                    <input type="checkbox" id="checkbox-task5">
+                    <label for="checkbox-task5">0615- Alwaqiah [Jumaat pagi: pilih Yaa’sin]</label>
+                </li>
+                <li data-task-id="task6">
+                    <input type="checkbox" id="checkbox-task6">
+                    <label for="checkbox-task6">0630- Masak 🍳</label>
+                </li>
+                <li data-task-id="task7">
+                    <input type="checkbox" id="checkbox-task7">
+                    <label for="checkbox-task7">0730- Feeding 😺</label>
+                </li>
+                <li data-task-id="task8">
+                    <input type="checkbox" id="checkbox-task8">
+                    <label for="checkbox-task8">0830 -sarapan 🍽️</label>
+                </li>
+            </ul>
+        </div>
 
-        <section id="DrCoconutSaysSection" class="dr-coconut-tips-section">
-            <h3>Dr. Coconut Says:</h3>
-            <p id="drCoconutTip">Loading a tip...</p>
-        </section>
-    </main>
+        <div class="category">
+            <h2>Zone Hijau🧤</h2>
+            <ul id="zone-hijau-tasks" class="task-list">
+                <li data-task-id="task9">
+                    <input type="checkbox" id="checkbox-task9">
+                    <label for="checkbox-task9">0900- Gardening [If cancel: Skip to Freelance Moona's [2 Jam]</label>
+                </li>
+            </ul>
+        </div>
 
-    <footer class="app-footer">
-        <p>&copy; 2025 MyPlanner</p>
-    </footer>
+        <div class="category">
+            <h2>Mid-day Activities</h2>
+            <ul id="midday-activities-tasks" class="task-list">
+                <li data-task-id="task10">
+                    <input type="checkbox" id="checkbox-task10">
+                    <label for="checkbox-task10">1100- Mandi</label>
+                </li>
+                <li data-task-id="task11">
+                    <input type="checkbox" id="checkbox-task11">
+                    <label for="checkbox-task11">1115- Snack fruit 🍑 / 🍶 Minum Chia seed + Laundry [Digital Zone 📱: Reply] / [Packaging Product]</label>
+                </li>
+                <li data-task-id="task12">
+                    <input type="checkbox" id="checkbox-task12">
+                    <b label for="checkbox-task12">1230- Nap (Weekend)</b></label>
+                </li>
+                <li data-task-id="task13">
+                    <input type="checkbox" id="checkbox-task13">
+                    <label for="checkbox-task13">1300- Laundry / [ 🚚 📦]</label>
+                </li>
+                <li data-task-id="task14">
+                    <input type="checkbox" id="checkbox-task14">
+                    <b label for="checkbox-task14">1330- Zuhur☪️</b></label>
+                </li>
+                <li data-task-id="task15">
+                    <input type="checkbox" id="checkbox-task15">
+                    <label for="checkbox-task15">1345- 2 m/s Al-Quran</label>
+                </li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h2>Digital Zone</h2>
+            <ul id="digital-zone-tasks" class="task-list">
+                <li data-task-id="task16">
+                    <input type="checkbox" id="checkbox-task16">
+                    <label for="checkbox-task16">1400- Freelance Moona's [2 Jam 45 minit]</label>
+                </li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h2>Evening Routine</h2>
+            <ul id="evening-routine-tasks" class="task-list">
+                <li data-task-id="task17">
+                    <input type="checkbox" id="checkbox-task17">
+                    <b label for="checkbox-task17">1645- Asar☪️</b></label>
+                </li>
+                <li data-task-id="task18">
+                    <input type="checkbox" id="checkbox-task18">
+                    <label for="checkbox-task18">1700- Biji baru/Replant</label>
+                </li>
+                <li data-task-id="task19">
+                    <input type="checkbox" id="checkbox-task19">
+                    <label for="checkbox-task19">1800- Feeding 😺</label>
+                </li>
+                <li data-task-id="task20">
+                    <input type="checkbox" id="checkbox-task20">
+                    <label for="checkbox-task20">1900- Dinner 🍽️</label>
+                </li>
+                <li data-task-id="task21">
+                    <input type="checkbox" id="checkbox-task21">
+                    <label for="checkbox-task21">1930- Mandi 🚿,<b> Maghrib☪️</b></label>
+                </li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h2>Night Routine</h2>
+            <ul id="night-routine-tasks" class="task-list">
+                <li data-task-id="task22">
+                    <input type="checkbox" id="checkbox-task22">
+                    <label for="checkbox-task22">2000- Alkahfi, Almulk [Jumaat: +Alwaqiah]</label>
+                </li>
+                <li data-task-id="task23">
+                    <input type="checkbox" id="checkbox-task23">
+                    <label for="checkbox-task23">2045- Isyak☪️</label>
+                </li>
+                <li data-task-id="task24">
+                    <input type="checkbox" id="checkbox-task24">
+                    <label for="checkbox-task24">2100- Family time</label>
+                </li>
+                <li data-task-id="task25">
+                    <input type="checkbox" id="checkbox-task25">
+                    <label for="checkbox-task25">2130- Me time (Skincare) </label>
+                </li>
+                <li data-task-id="task26">
+                    <input type="checkbox" id="checkbox-task26">
+                    <label for="checkbox-task26">2230- Tidur 💤</label>
+                </li>
+            </ul>
+        </div>
+
+        <button id="clear-tasks-btn">Clear All Done Tasks</button>
+
+    </div>
+
+    <div id="notification-popup" class="notification-popup">
+        <p><span id="notification-message"></span></p>
+    </div>
 
     <script src="script.js"></script>
 </body>
